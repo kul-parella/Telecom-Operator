@@ -1,0 +1,28 @@
+package au.com.telecom.configs;
+
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.OpenAPI;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+/***
+ * OpenAIConfig is used by OpenAPI dependencies to render the API spec
+ *  @author :Kuladeep Parella
+ */
+@Configuration
+public class openAIConfig {
+
+    /***
+     *
+     * @return OpenAPI object needed to create API specs
+     */
+    @Bean
+    public OpenAPI customOpenAPI() {
+        return new OpenAPI()
+                .info(new Info()
+                        .title("Telecom Phone Number API")
+                        .version("1.0")
+                        .description("REST API to manage phone numbers and customer data"));
+    }
+}
+
