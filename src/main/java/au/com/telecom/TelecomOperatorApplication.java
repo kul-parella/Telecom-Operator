@@ -1,4 +1,4 @@
-package au.com.telecom.Telecom_Operator;
+package au.com.telecom;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

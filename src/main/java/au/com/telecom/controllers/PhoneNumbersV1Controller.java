@@ -1,8 +1,8 @@
-package au.com.telecom.Controllers;
+package au.com.telecom.controllers;
 
 import java.util.List;
-import au.com.telecom.Services.PhoneNumberService;
-import au.com.telecom.entities.PhoneNumber;
+import au.com.telecom.Services.PhoneNumberServiceImpl;
+import au.com.telecom.models.PhoneNumber;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class PhoneNumbersV1Controller {
 
     // Autowired service class to handle service calls for phone Numbers
     @Autowired
-    private PhoneNumberService service;
+    private PhoneNumberServiceImpl service;
 
     /***
      * Get request mapped to handle /phone-numbers mapping to retrieve all phone numbers.
@@ -41,7 +41,7 @@ public class PhoneNumbersV1Controller {
      */
     @Operation(summary = "Get phone numbers for a customer")
     @GetMapping("/customers/{customerId}/phone-numbers")
-    public List<PhoneNumber> getPhoneNumbersByCustomer(@PathVariable Long customerId) {
+    public List<PhoneNumber> getPhoneNumbersByCustomer(@PathVariable String customerId) {
         return service.getPhoneNumbersByCustomer(customerId);
     }
 

@@ -1,4 +1,4 @@
-package au.com.telecom.entities;
+package au.com.telecom.models;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -23,6 +23,16 @@ public class PhoneNumber {
     @JsonPropertyDescription("Phone Number")
     @Pattern(regexp = "\\d{10}", message = "Phone number must be exactly 10 digits with no letters or symbols")
     @NotNull
-    private  String phoneNumber;
+    private  String number;
+
+    @JsonProperty("active")
+    @JsonPropertyDescription("Phone Number is active")
+    @NotNull
+    private boolean active;
+
+    @JsonPropertyDescription("Customer Id")
+    @Pattern(regexp = "//d{1,3}", message = "Customer Id between 1-3 digits with no letters or symbols")
+    @NotNull
+    private String customerId;
 
 }
