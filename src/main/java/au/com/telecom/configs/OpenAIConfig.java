@@ -14,7 +14,7 @@ import io.swagger.v3.oas.models.media.Schema;
  *  @author :Kuladeep Parella
  */
 @Configuration
-public class openAIConfig {
+public class OpenAIConfig {
 
     /***
      *

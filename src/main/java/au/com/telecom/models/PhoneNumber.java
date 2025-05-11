@@ -21,18 +21,13 @@ public class PhoneNumber {
 
     @JsonProperty("phoneNumber")
     @JsonPropertyDescription("Phone Number")
-    @Pattern(regexp = "\\d{10}", message = "Phone number must be exactly 10 digits with no letters or symbols")
-    @NotNull
     private  String number;
 
     @JsonProperty("active")
     @JsonPropertyDescription("Phone Number is active")
-    @NotNull
     private boolean active;
 
     @JsonPropertyDescription("Customer Id")
-    @Pattern(regexp = "//d{1,3}", message = "Customer Id between 1-3 digits with no letters or symbols")
-    @NotNull
     private String customerId;
 
 }
