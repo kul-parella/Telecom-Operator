@@ -65,7 +65,7 @@ public class PhoneNumbersV1Controller {
      * @return boolean to represent activation status.
      */
     @Operation(summary = "Activate a phone number")
-    @PostMapping("/{number}/activate")
+    @PostMapping("/phone-numbers/{number}/activate")
     public ResponseEntity<String> activatePhoneNumber(@PathVariable String number) {
         boolean result = service.activatePhoneNumber(number);
         if (result) {
