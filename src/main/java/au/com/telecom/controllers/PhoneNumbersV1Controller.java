@@ -11,7 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,8 +31,8 @@ public class PhoneNumbersV1Controller {
 
     /***
      * Get all phone numbers with pagination.
-     * @param pageable page, size, sort criteria
-     * optional query params for pagination /api/v1/phone-numbers?page=2&size=50&sort=number,desc
+     * @param page number -  page, size, sort criteria optional.
+     * optional query params for pagination, default set from 0 page, size - 5, asc.
      * @return paged list of Phone Numbers.
      */
     @Operation(summary = "Get all phone numbers (paginated)")
