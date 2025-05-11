@@ -4,9 +4,11 @@ import java.util.List;
 import au.com.telecom.services.PhoneNumberServiceImpl;
 import au.com.telecom.dto.PhoneNumber;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -36,11 +38,13 @@ public class PhoneNumbersV1Controller {
      */
     @Operation(summary = "Get all phone numbers (paginated)")
     @GetMapping("/phone-numbers")
-    public ResponseEntity<Page<PhoneNumber>> getAllPhoneNumbers(
-            @PageableDefault(page = 0, size = 5, sort = "number", direction = Sort.Direction.ASC) Pageable pageable) {
+    public Page<PhoneNumber> getAllPhoneNumbers(
+            @Parameter(description = "Page number", example = "0") @RequestParam(defaultValue = "0") int page,
+            @Parameter(description = "Page size", example = "5") @RequestParam(defaultValue = "5") int size,
+            @Parameter(description = "Sort field and direction", example = "number,asc") @RequestParam(defaultValue = "number,asc") String[] sort) {
 
-        Page<PhoneNumber> page = service.getAllPhoneNumbers(pageable);
-        return ResponseEntity.ok(page);
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Order.asc("number")));
+        return service.getAllPhoneNumbers(pageable);
     }
 
     /***
