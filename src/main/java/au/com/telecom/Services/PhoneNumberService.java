@@ -1,15 +1,15 @@
-package au.com.telecom.Services;
+package au.com.telecom.services;
 
-import au.com.telecom.models.PhoneNumber;
-
+import au.com.telecom.dto.PhoneNumber;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface PhoneNumberService {
 
-     List<PhoneNumber> getAllPhoneNumbers();
+     Page<PhoneNumber> getAllPhoneNumbers(Pageable pageable);
+     List<PhoneNumber> getPhoneNumbersByCustomer(Long customerId);
+     boolean activatePhoneNumber(String number);
 
-     List<PhoneNumber> getPhoneNumbersByCustomer(String id);
-
-     boolean activatePhoneNumber(String phonNumber);
 
 }

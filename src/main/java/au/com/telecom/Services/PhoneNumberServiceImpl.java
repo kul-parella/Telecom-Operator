@@ -1,9 +1,17 @@
-package au.com.telecom.Services;
+package au.com.telecom.services;
 
-import au.com.telecom.models.PhoneNumber;
+import au.com.telecom.dto.PhoneNumber;
+import au.com.telecom.entities.CustomerEntity;
+import au.com.telecom.entities.PhoneNumberEntity;
+import au.com.telecom.repositories.CustomerRepository;
+import au.com.telecom.repositories.PhoneNumberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
+
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /***
@@ -11,44 +19,53 @@ import java.util.stream.Collectors;
  * @author  kuladeep.
  */
 @Service
-public class PhoneNumberServiceImpl implements  PhoneNumberService{
+public class PhoneNumberServiceImpl implements PhoneNumberService {
 
-    private static List<PhoneNumber> phoneNumbers;
+    @Autowired
+    private PhoneNumberRepository phoneRepo;
 
-    static {
-        phoneNumbers = new ArrayList<>();
-        phoneNumbers.add(new PhoneNumber("1234567890", false, "123"));
-        phoneNumbers.add(new PhoneNumber("9876543210", true, "123"));
-        phoneNumbers.add(new PhoneNumber("5556667777", false, "147"));
-        phoneNumbers.add(new PhoneNumber("1112223333", true, "147"));
-        phoneNumbers.add(new PhoneNumber("4445556666", false, "999"));
+    @Autowired
+    private CustomerRepository custRepo;
+
+    @Autowired
+    private PhoneNumberMapper mapper;
+
+    @Override
+    public Page<PhoneNumber> getAllPhoneNumbers(Pageable pageable) {
+        Page<PhoneNumberEntity> entityPage = phoneRepo.findAll(pageable);
+        return entityPage.map(mapper::toDto);
     }
 
-    public List<PhoneNumber> getAllPhoneNumbers() {
-        return phoneNumbers;
+    @Override
+    public boolean activatePhoneNumber(String number) {
+
+        Optional<Object> optionalPhoneNumber = phoneRepo.findByNumber(number);
+        if (optionalPhoneNumber.isPresent()) {
+            PhoneNumberEntity phoneNumber = (PhoneNumberEntity) optionalPhoneNumber.get();
+            phoneNumber.setActivated(true);
+            phoneRepo.save(phoneNumber);
+            return true;
+        } else {
+            return false;
+        }
     }
 
+    @Override
+    public List<PhoneNumber> getPhoneNumbersByCustomer(Long id) {
 
-    public List<PhoneNumber> getPhoneNumbersByCustomer(String id) {
+        CustomerEntity customer = custRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Customer not found"));
+
+        List<PhoneNumberEntity> phoneNumbers = customer.getPhoneNumbers();
+
         return phoneNumbers.stream()
-                .filter(p -> p.getCustomerId().equals(id))
+                .map(this::mapToModel)
                 .collect(Collectors.toList());
     }
 
-    public boolean activatePhoneNumber(String phonNumber) {
-        return phoneNumbers.stream()
-                .filter(p -> p.getNumber().equals(phonNumber))
-                .findFirst()
-                .map(p -> {
-                    p.setActive(true);
-                    return true;
-                }).orElse(false);
+    private PhoneNumber mapToModel(PhoneNumberEntity entity) {
+        return new PhoneNumber(entity.getNumber(), entity.getActivated());
     }
-
-
-
-
-
 
 
 }

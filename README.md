@@ -10,7 +10,7 @@ This code base is to simulate APIs for a telecom operator.
     Build:
     build command: ./gradlew clean build 
     Run:
-    run the app: Run au.com.telecom.TelecomOperatorApplication class 
+    run the app: Run au.com.telecom.telecomapp.TelecomOperatorApplication class 
                 (No prog args expected ! by default app pick up 8080 port
                 if port is updated below endpoints' port will also need to be updated)
 

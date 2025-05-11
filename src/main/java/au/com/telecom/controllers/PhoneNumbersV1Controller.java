@@ -1,11 +1,15 @@
 package au.com.telecom.controllers;
 
 import java.util.List;
-import au.com.telecom.Services.PhoneNumberServiceImpl;
-import au.com.telecom.models.PhoneNumber;
+import au.com.telecom.services.PhoneNumberServiceImpl;
+import au.com.telecom.dto.PhoneNumber;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,13 +29,18 @@ public class PhoneNumbersV1Controller {
     private PhoneNumberServiceImpl service;
 
     /***
-     * Get request mapped to handle /phone-numbers mapping to retrieve all phone numbers.
-     * @return List of Phone Numbers.
+     * Get all phone numbers with pagination.
+     * @param pageable page, size, sort criteria
+     * optional query params for pagination /api/v1/phone-numbers?page=2&size=50&sort=number,desc
+     * @return paged list of Phone Numbers.
      */
-    @Operation(summary = "Get all phone numbers")
+    @Operation(summary = "Get all phone numbers (paginated)")
     @GetMapping("/phone-numbers")
-    public List<PhoneNumber> getAllPhoneNumbers() {
-        return service.getAllPhoneNumbers();
+    public ResponseEntity<Page<PhoneNumber>> getAllPhoneNumbers(
+            @PageableDefault(page = 0, size = 20, sort = "number", direction = Sort.Direction.ASC) Pageable pageable) {
+
+        Page<PhoneNumber> page = service.getAllPhoneNumbers(pageable);
+        return ResponseEntity.ok(page);
     }
 
     /***
@@ -41,7 +50,7 @@ public class PhoneNumbersV1Controller {
      */
     @Operation(summary = "Get phone numbers for a customer")
     @GetMapping("/customers/{customerId}/phone-numbers")
-    public List<PhoneNumber> getPhoneNumbersByCustomer(@PathVariable String customerId) {
+    public List<PhoneNumber> getPhoneNumbersByCustomer(@PathVariable Long customerId) {
         return service.getPhoneNumbersByCustomer(customerId);
     }
 
