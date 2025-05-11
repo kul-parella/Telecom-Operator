@@ -5,6 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/***
+ * PhoneNumberEntity DB class to hold phone number related info.
+ * @author  kuladeep.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

@@ -5,7 +5,10 @@ import au.com.telecom.dto.PhoneNumber;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
-
+/***
+ * PhoneMapper class to create mapping b/w DB entity and model objects.
+ *  @author  kuladeep.
+ */
 @Service
 public class PhoneNumberMapper {
 

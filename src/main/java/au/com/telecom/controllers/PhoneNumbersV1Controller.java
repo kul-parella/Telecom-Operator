@@ -37,7 +37,7 @@ public class PhoneNumbersV1Controller {
     @Operation(summary = "Get all phone numbers (paginated)")
     @GetMapping("/phone-numbers")
     public ResponseEntity<Page<PhoneNumber>> getAllPhoneNumbers(
-            @PageableDefault(page = 0, size = 20, sort = "number", direction = Sort.Direction.ASC) Pageable pageable) {
+            @PageableDefault(page = 0, size = 5, sort = "number", direction = Sort.Direction.ASC) Pageable pageable) {
 
         Page<PhoneNumber> page = service.getAllPhoneNumbers(pageable);
         return ResponseEntity.ok(page);

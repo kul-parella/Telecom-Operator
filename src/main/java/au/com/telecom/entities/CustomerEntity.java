@@ -8,6 +8,10 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
+/***
+ * CustomerEntity class to hold customer info.
+ * @author  kuladeep.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

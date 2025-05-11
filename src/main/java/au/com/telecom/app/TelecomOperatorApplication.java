@@ -1,4 +1,4 @@
-package au.com.telecom.telecomapp;
+package au.com.telecom.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
