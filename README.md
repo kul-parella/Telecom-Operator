@@ -32,3 +32,5 @@ other configurations are available in app properties file
 
 In service layer, using Post construct loading the static data structure to load phoneNumbers while initializing ! 
 and only loading 5 records as initial load same as pagination size. 
+
+FYI, if you are testing apis from swagger on browser, you need to invalidate cache in the browser to see updated payloads. Thanks! 
